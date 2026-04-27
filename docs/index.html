@@ -111,11 +111,16 @@ assembled = global_assembler.assemble(items, context)
         <section class="code-section" style="margin-top: 0; padding-top: 0;">
             <div class="code-text" style="order: 2;">
                 <h2>Infinite <span class="gradient-text">Extensibility</span></h2>
-                <p>PowerStyle allows you to easily plug in your own custom algorithms to handle specialized processing per tier. We've added several new algorithms to the standard library!</p>
+                <p>PowerStyle allows you to easily plug in your own custom algorithms to handle specialized processing per tier. We've added <strong>22+ algorithms</strong> to the standard library!</p>
                 <ul class="feature-list">
-                    <li>✓ <strong>KeywordMatchAlgorithm</strong>: Fast, simple keyword fallback when Vectors aren't needed.</li>
-                    <li>✓ <strong>TimeWeightSortAlgorithm</strong>: Ideal for chat histories, scoring by recency + strength.</li>
-                    <li>✓ <strong>LLMSummaryAlgorithm</strong>: Lossy compression for Tier 3 cold data.</li>
+                    <li>✓ <strong>ExactMatchAlgorithm</strong>: 100% precision.</li>
+                    <li>✓ <strong>VectorSearchAlgorithm</strong>: Semantic embedding search.</li>
+                    <li>✓ <strong>JaccardSimilarityAlgorithm</strong>: Lightweight string matching.</li>
+                    <li>✓ <strong>TimeWeightSortAlgorithm</strong>: Recency + Strength for chats.</li>
+                    <li>✓ <strong>LLMSummaryAlgorithm</strong>: Intelligent compression.</li>
+                    <li>✓ <strong>LengthTruncateAlgorithm</strong>: Hard limit for context windows.</li>
+                    <li>✓ <strong>RandomSampleAlgorithm</strong>: For generation diversity.</li>
+                    <li>✓ <em>...and 15 more!</em></li>
                 </ul>
             </div>
             <div class="glass-card code-showcase" style="order: 1;">

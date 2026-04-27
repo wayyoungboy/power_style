@@ -20,9 +20,9 @@ Not all memory is created equal. **PowerStyle** allows you to configure dynamic 
 
 ## 🚀 Features
 
-- **Multi-Tier Degradation:** Automatically handles the decay of unused memory and the promotion of actively used memory.
+- **Multi-Tier Degradation:** Automatically handles the decay of unused memory and the promotion of actively used memory (Supports standard linear decay or Ebbinghaus Forgetting Curve).
 - **Resource Decoupling:** Pluggable `VectorResource` and `LLMResource` abstractions.
-- **Algorithm Plugins:** Define custom behaviors via `AssemblyAlgorithm` (e.g., `ExactMatchAlgorithm`, `VectorSearchAlgorithm`, `LLMSummaryAlgorithm`).
+- **22+ Built-in Algorithms:** Define custom behaviors via `AssemblyAlgorithm` (e.g., `ExactMatchAlgorithm`, `VectorSearchAlgorithm`, `LLMSummaryAlgorithm`, `TimeWeightSortAlgorithm`, `JaccardSimilarityAlgorithm`, `ShuffleAlgorithm`, etc.).
 - **Zero Business Logic:** PowerStyle knows nothing about your business models. Simply inherit from `MemoryItem` and let the `MemoryManager` and `ItemAssembler` do the heavy lifting.
 
 ## 🛠️ Quick Start
