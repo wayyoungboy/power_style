@@ -6,7 +6,7 @@ build-backend = "setuptools.build_meta"
 name = "power_style"
 version = "0.1.0"
 description = "A generic, multi-tier memory and rule scheduling framework inspired by PowerMem."
-authors = [{ name = "Author", email = "author@example.com" }]
+authors = [{ name = "wayyoungboy", email = "wayyoungboy@github.com" }]
 readme = "README.md"
 requires-python = ">=3.10"
 dependencies = [
