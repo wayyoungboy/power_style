@@ -108,6 +108,45 @@ assembled = global_assembler.assemble(items, context)
                     <li>✓ Dynamic Tool Loading</li>
                 </ul>
             </div>
+        <section class="code-section" style="margin-top: 0; padding-top: 0;">
+            <div class="code-text" style="order: 2;">
+                <h2>Infinite <span class="gradient-text">Extensibility</span></h2>
+                <p>PowerStyle allows you to easily plug in your own custom algorithms to handle specialized processing per tier. We've added several new algorithms to the standard library!</p>
+                <ul class="feature-list">
+                    <li>✓ <strong>KeywordMatchAlgorithm</strong>: Fast, simple keyword fallback when Vectors aren't needed.</li>
+                    <li>✓ <strong>TimeWeightSortAlgorithm</strong>: Ideal for chat histories, scoring by recency + strength.</li>
+                    <li>✓ <strong>LLMSummaryAlgorithm</strong>: Lossy compression for Tier 3 cold data.</li>
+                </ul>
+            </div>
+            <div class="glass-card code-showcase" style="order: 1;">
+                <div class="code-header">
+                    <div class="window-controls">
+                        <span></span><span></span><span></span>
+                    </div>
+                    <div class="file-name">advanced_usage.py</div>
+                </div>
+                <pre><code class="language-python">
+<span class="comment"># Using advanced algorithms for Chat History</span>
+<span class="keyword">from</span> power_style.plugins.algorithms <span class="keyword">import</span> TimeWeightSortAlgorithm
+
+<span class="comment"># Register custom routing</span>
+global_assembler.register_algorithm(
+    <span class="string">"time_weight_sort"</span>, 
+    TimeWeightSortAlgorithm()
+)
+
+<span class="comment"># Assemble context for an LLM Agent</span>
+context = {
+    <span class="string">"query"</span>: <span class="string">"What did we discuss?"</span>,
+    <span class="string">"limit"</span>: 5  <span class="comment"># Used by TimeWeightSort</span>
+}
+
+<span class="comment"># The assembler routes data to the best plugin</span>
+assembled = global_assembler.assemble(memories, context)
+
+<span class="function">print</span>(<span class="string">"Tier 1 (Recency+Strength): "</span>, len(assembled[1]))
+                </code></pre>
+            </div>
         </section>
     </main>
 
