@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PowerStyle | Multi-Tier Memory Framework</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="background-effects">
+        <div class="glow-orb purple"></div>
+        <div class="glow-orb cyan"></div>
+    </div>
+
+    <nav class="glass-nav">
+        <div class="nav-content">
+            <div class="logo">
+                <span class="logo-power">POWER</span><span class="logo-style">STYLE</span>
+            </div>
+            <div class="nav-links">
+                <a href="#features">Features</a>
+                <a href="#how-it-works">Architecture</a>
+                <a href="https://github.com/wayyoungboy/power_style" class="btn-primary" target="_blank">View on GitHub</a>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <section class="hero">
+            <div class="hero-text">
+                <div class="badge">v0.1.0 Released</div>
+                <h1>Dynamic Memory & <br><span class="gradient-text">Rule Scheduling</span></h1>
+                <p>The ultimate multi-tier generic framework for intelligent routing, context assembly, and state decay. Never let your LLM context window overflow again.</p>
+                <div class="hero-actions">
+                    <button class="btn-primary large" onclick="window.location.href='https://github.com/wayyoungboy/power_style'">Get Started</button>
+                    <button class="btn-secondary large" onclick="document.getElementById('features').scrollIntoView({behavior: 'smooth'})">Explore Features</button>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="glass-card hero-image-container">
+                    <img src="assets/hero.png" alt="PowerStyle Architecture" class="hero-image">
+                    <div class="floating-badge top-right">⚡️ Strength 0.98</div>
+                    <div class="floating-badge bottom-left">🧠 Tier 1 Active</div>
+                </div>
+            </div>
+        </section>
+
+        <section id="features" class="features-section">
+            <div class="section-header">
+                <h2>Why <span class="gradient-text">PowerStyle?</span></h2>
+                <p>Built for agents, robust enough for any dynamic scheduling task.</p>
+            </div>
+            
+            <div class="features-grid">
+                <div class="glass-card feature-card">
+                    <div class="feature-icon purple-glow">🌊</div>
+                    <h3>Fluid Multi-Tiering</h3>
+                    <p>Items degrade over time based on configurable decay rates. Only active, heavily-used items maintain high strength, naturally keeping your primary context pristine.</p>
+                </div>
+                <div class="glass-card feature-card">
+                    <div class="feature-icon cyan-glow">🧩</div>
+                    <h3>Pluggable Assemblers</h3>
+                    <p>Map specific behaviors to each tier. Tier 1 gets Exact Match, Tier 2 runs Vector Semantic Search, and Tier 3 utilizes LLM Summarization.</p>
+                </div>
+                <div class="glass-card feature-card">
+                    <div class="feature-icon pink-glow">🔌</div>
+                    <h3>Decoupled Resources</h3>
+                    <p>Bring your own Vector Database and LLM Provider. PowerStyle uses an abstract interface allowing hot-swapping between OpenAI, local models, SeekDB, or Chroma.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="how-it-works" class="code-section">
+            <div class="glass-card code-showcase">
+                <div class="code-header">
+                    <div class="window-controls">
+                        <span></span><span></span><span></span>
+                    </div>
+                    <div class="file-name">example.py</div>
+                </div>
+                <pre><code class="language-python">
+<span class="keyword">from</span> power_style.core.memory_manager <span class="keyword">import</span> MemoryManager
+<span class="keyword">from</span> power_style.core.assembler <span class="keyword">import</span> global_assembler
+
+<span class="comment"># 1. Initialize with your config</span>
+manager = MemoryManager(default_config)
+
+<span class="comment"># 2. Process items (Automatic Decay & Tier Calculation)</span>
+items = manager.process_items(my_agent_tools)
+
+<span class="comment"># 3. Assemble Context</span>
+context = { <span class="string">"query"</span>: <span class="string">"extract data from pdf"</span> }
+assembled = global_assembler.assemble(items, context)
+
+<span class="function">print</span>(<span class="string">f"Tier 1 (Exact): <span class="variable">{len(assembled[1])}</span>"</span>)
+<span class="function">print</span>(<span class="string">f"Tier 2 (Vector): <span class="variable">{len(assembled[2])}</span>"</span>)
+                </code></pre>
+            </div>
+            <div class="code-text">
+                <h2>Elegant & <span class="gradient-text">Un-opinionated</span></h2>
+                <p>PowerStyle doesn't care what your data is. Just inherit from <code>MemoryItem</code>, configure your decay rates, and let the <code>MemoryManager</code> and <code>ItemAssembler</code> handle the routing logic.</p>
+                <ul class="feature-list">
+                    <li>✓ Perfect for Chat History</li>
+                    <li>✓ Excellent for Code Guidelines</li>
+                    <li>✓ Dynamic Tool Loading</li>
+                </ul>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="logo">
+                <span class="logo-power">POWER</span><span class="logo-style">STYLE</span>
+            </div>
+            <p>© 2026 PowerStyle Framework. MIT Licensed.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
