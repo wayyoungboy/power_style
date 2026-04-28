@@ -323,6 +323,11 @@ p {
 
 .code-showcase {
     overflow: hidden;
+    min-width: 0;
+}
+
+.code-text {
+    min-width: 0;
 }
 
 .code-header {

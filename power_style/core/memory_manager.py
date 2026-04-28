@@ -37,3 +37,24 @@ class MemoryManager:
     def process_items(self, items: List[T]) -> List[T]:
         """批量处理衰减与分层"""
         return [self.demote(item) for item in items]
+
+class EbbinghausMemoryManager(MemoryManager):
+    """艾宾浩斯遗忘曲线调度器
+    使用指数衰减模型模拟人类大脑的遗忘机制，而非线性衰减。
+    公式: R = e^(-t/S) (简化版)
+    """
+    def demote(self, item: T) -> T:
+        import math
+        now = datetime.now(timezone.utc)
+        days_passed = (now - item.last_accessed).days
+        
+        if days_passed > 0:
+            # 引入半衰期概念（比如7天）
+            # days_passed 越大，遗忘越快；但基础 strength 如果很高，则下降平缓
+            decay_factor = math.exp(-days_passed / 7.0)
+            
+            # 使用遗忘因子重新计算当前记忆强度
+            item.strength = item.strength * decay_factor
+            item.tier_level = self.calculate_tier(item.strength)
+            
+        return item
