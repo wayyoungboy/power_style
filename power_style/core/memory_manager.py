@@ -19,10 +19,26 @@ class MemoryManager:
                 return tier.level
         return self.sorted_tiers[-1].level
 
-    def promote(self, item: T) -> T:
-        item.strength = min(1.0, item.strength + self.config.promotion_boost)
+    def promote(self, item: T, boost_multiplier: float = 1.0) -> T:
+        """提升记忆强度。
+        
+        Args:
+            item: 需要提升的记忆对象
+            boost_multiplier: 提升倍率，如果需要一次性实现“多层跃迁”，可以传入更大的倍率 (如 3.0)。
+        """
+        item.strength = min(1.0, item.strength + (self.config.promotion_boost * boost_multiplier))
         item.last_accessed = datetime.now(timezone.utc)
         item.tier_level = self.calculate_tier(item.strength)
+        return item
+
+    def promote_to_tier(self, item: T, target_level: int) -> T:
+        """直接指定多层跨越：将记忆直接提拔到某个特定的层级"""
+        target_tier = next((t for t in self.sorted_tiers if t.level == target_level), None)
+        if target_tier:
+            # 直接将强度拉到目标层级的及格线（如果当前更强则保持不变）
+            item.strength = max(item.strength, target_tier.threshold)
+            item.last_accessed = datetime.now(timezone.utc)
+            item.tier_level = self.calculate_tier(item.strength)
         return item
 
     def demote(self, item: T) -> T:
