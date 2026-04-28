@@ -74,3 +74,62 @@ class EbbinghausMemoryManager(MemoryManager):
             item.tier_level = self.calculate_tier(item.strength)
             
         return item
+
+class LRUMemoryManager(MemoryManager):
+    """LRU (Least Recently Used) 调度器
+    一种硬性淘汰策略，如果在指定天数内未被访问，则记忆强度瞬间归零，直接打入冷宫。
+    适合对上下文“时效性”要求极高、不需要平滑过渡的场景。
+    """
+    def demote(self, item: T) -> T:
+        now = datetime.now(timezone.utc)
+        days_passed = (now - item.last_accessed).days
+        
+        # 比如硬性阈值是 3 天，超过 3 天未访问直接清零
+        threshold_days = getattr(self.config, 'lru_threshold_days', 3)
+        
+        if days_passed >= threshold_days:
+            item.strength = 0.0
+            item.tier_level = self.calculate_tier(item.strength)
+            
+        return item
+
+class VolatileMemoryManager(MemoryManager):
+    """易失性记忆调度器 (Volatile Memory)
+    类似 RAM 的行为：除了刚刚被 promote 的数据，所有数据在下一次流转时都会被极速降级。
+    """
+    def demote(self, item: T) -> T:
+        now = datetime.now(timezone.utc)
+        days_passed = (now - item.last_accessed).days
+        
+        if days_passed > 0:
+            # 每天暴跌 0.8 的强度，基本上一天不看就直接忘光
+            item.strength = max(0.0, item.strength - 0.8)
+            item.tier_level = self.calculate_tier(item.strength)
+            
+        return item
+
+class FrequencyMemoryManager(MemoryManager):
+    """LFU (Least Frequently Used) 调度器
+    记忆的衰减速度与它的“历史访问总次数”成反比。
+    被提及（访问）次数越多的记忆，它“变得更顽固”，抗衰减能力越强。
+    """
+    def demote(self, item: T) -> T:
+        now = datetime.now(timezone.utc)
+        days_passed = (now - item.last_accessed).days
+        
+        if days_passed > 0:
+            # 假设 item 的 metadata 里记录了 access_count (访问频次)
+            access_count = 1
+            if hasattr(item, 'metadata') and item.metadata:
+                access_count = item.metadata.get('access_count', 1)
+            
+            # 频次越高，衰减抵消系数越小（衰减越慢）
+            # 比如访问了 10 次，衰减率就是原来的 1/10
+            resistance = max(1, access_count)
+            decay = (days_passed * self.config.decay_rate_per_day) / resistance
+            
+            item.strength = max(0.0, item.strength - decay)
+            item.tier_level = self.calculate_tier(item.strength)
+            
+        return item
+
